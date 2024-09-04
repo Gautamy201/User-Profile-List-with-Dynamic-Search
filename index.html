@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+    <style>
+      .user-profile {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+      .search-input {
+        margin-bottom: 20px;
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Your  code will go here
+    function UserProfile({ user }) {
+      return (
+        <div className="user-profile">
+          <h3>{user.name}</h3>
+          <p>Email: {user.email}</p>
+          <p>Location: {user.location}</p>
+        </div>
+      );
+    }
+    function App() {
+      const [users, setUsers] = React.useState([
+        {
+          id: 1,
+          name: "Gautam Yadav",
+          email: "gautam@gmail.com",
+          location: "Uttar Pradesh",
+        },
+        {
+          id: 2,
+          name: "Hargovind Yadav",
+          email: "harry@gmail.com",
+          location: "Mumbai",
+        },
+        {
+          id: 3,
+          name: "Nirmal Yadav",
+          email: "nirmal@gmail.com",
+          location: "Bihar",
+        },
+        // Add more user profiles as needed
+      ]);
+
+      const [searchQuery, setSearchQuery] = React.useState("");
+
+      const filteredUsers = users.filter((user) =>
+        user.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+      return (
+        <div>
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search profiles by name..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <div>
+            {filteredUsers.map((user) => (
+              <UserProfile key={user.id} user={user} />
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, document.getElementById("root"));
+  </script>
+</html>
